@@ -57,4 +57,12 @@ class Building extends Model
     {
         return $this->hasMany(Apartment::class);
     }
+
+    /**
+     * Get the prices for the Building
+     */
+    public function prices(): HasMany
+    {
+        return $this->hasMany(Price::class);
+    }
 }
