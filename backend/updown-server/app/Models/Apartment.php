@@ -40,4 +40,12 @@ class Apartment extends Model
         'is_paid' => 'boolean',
         'is_banned' => 'boolean',
     ];
+
+    /**
+     * Get the building that has the Apartment
+     */
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class);
+    }
 }
