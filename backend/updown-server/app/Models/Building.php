@@ -49,4 +49,12 @@ class Building extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the apartments for the Building
+     */
+    public function apartments(): HasMany
+    {
+        return $this->hasMany(Apartment::class);
+    }
 }
