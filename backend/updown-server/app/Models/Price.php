@@ -11,4 +11,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Price extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'building_id',
+        'tax',
+        'price_per_travel',
+        'start_date',
+        'end_date',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     */
+
+    protected $hidden = [
+        'building_id',
+    ];
 }
