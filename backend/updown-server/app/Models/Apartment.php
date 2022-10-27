@@ -48,4 +48,13 @@ class Apartment extends Model
     {
         return $this->belongsTo(Building::class);
     }
+
+    /**
+     * Get the user that owns the Apartment
+     */
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
