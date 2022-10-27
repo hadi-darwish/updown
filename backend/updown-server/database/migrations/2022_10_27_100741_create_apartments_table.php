@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('number');
             $table->integer('floor');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('set null');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
             $table->boolean('is_paid')->default(false);
             $table->boolean('is_banned')->default(false);
             $table->timestamps();
