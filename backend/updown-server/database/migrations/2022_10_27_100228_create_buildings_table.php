@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('number_of_floors');
             $table->integer('number_of_apartments');
             $table->boolean('is_paid')->default(false);
+            $table->boolean('is_banned')->default(false);
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps('created_at')->useCurrent();
         });
