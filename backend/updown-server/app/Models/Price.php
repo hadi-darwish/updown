@@ -30,4 +30,13 @@ class Price extends Model
     protected $hidden = [
         'building_id',
     ];
+
+    /**
+     * Get the building that has the Price
+     */
+
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class);
+    }
 }
