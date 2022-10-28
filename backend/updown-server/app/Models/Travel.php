@@ -28,4 +28,13 @@ class Travel extends Model
         'user_id',
         'apartment_id',
     ];
+
+    /**
+     * Get the user that owns the Travel
+     */
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
