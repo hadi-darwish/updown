@@ -37,4 +37,13 @@ class Travel extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the apartment that owns the Travel
+     */
+
+    public function apartment(): BelongsTo
+    {
+        return $this->belongsTo(Apartment::class);
+    }
 }
