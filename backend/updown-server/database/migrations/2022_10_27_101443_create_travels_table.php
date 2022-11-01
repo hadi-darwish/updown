@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('travels', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('apartment_id')->constrained('apartments')->onDelete('cascade');
             $table->timestamp('date')->useCurrent();
         });
     }
