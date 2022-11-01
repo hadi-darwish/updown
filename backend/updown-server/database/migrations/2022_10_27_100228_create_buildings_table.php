@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('number_of_apartments');
             $table->boolean('is_paid')->default(0);
             $table->boolean('is_banned')->default(0);
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->timestamps('created_at')->useCurrent();
         });
     }
