@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->integer('age')->nullable();
             $table->boolean('is_banned')->default(false);
-            $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('set null');
+            $table->foreignId('user_type_id')->constrained('user_types')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
         });
     }
