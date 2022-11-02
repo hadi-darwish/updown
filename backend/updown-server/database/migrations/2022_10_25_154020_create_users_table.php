@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->boolean('is_banned')->default(0);
             $table->foreignId('user_type_id')->constrained('user_types')->onDelete('cascade');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 
