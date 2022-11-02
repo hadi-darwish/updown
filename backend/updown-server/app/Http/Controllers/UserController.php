@@ -72,4 +72,14 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function createUser(Request $request)
+    {
+        $user = User::create($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+        ]);
+    }
 }
