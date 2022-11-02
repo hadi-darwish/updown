@@ -82,4 +82,25 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function banUser($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        $user->update([
+            'is_banned' => 1,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User banned',
+        ]);
+    }
 }
