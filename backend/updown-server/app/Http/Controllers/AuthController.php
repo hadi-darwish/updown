@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+
+use App\Models\User;
 use Illuminate\Http\Request;
+use  Illuminate\Database\Eloquent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+
 
 class AuthController extends Controller
 {
@@ -17,10 +21,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation error',
+            ], 400);
+        }
         $credentials = $request->only('email', 'password');
 
         $token = Auth::attempt($credentials);
@@ -42,6 +53,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     public function register(Request $request)
     {
         $request->validate([
@@ -51,13 +63,9 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone_number' => $request->phone_number,
-            'age' => $request->age,
-            'user_type_id' => $request->user_type_id,
         ]);
 
         $token = Auth::login($user);
