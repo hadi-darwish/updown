@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('set null');
+            $table->foreignId('building_id')->constrained('buildings')->onDelete('cascade');
             $table->float('tax');
             $table->float('price_per_travel');
             $table->date('start_date');
