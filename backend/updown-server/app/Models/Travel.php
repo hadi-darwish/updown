@@ -46,4 +46,9 @@ class Travel extends Model
     {
         return $this->belongsTo(Apartment::class);
     }
+
+    public function getDate(): string
+    {
+        return $this->date;
+    }
 }
