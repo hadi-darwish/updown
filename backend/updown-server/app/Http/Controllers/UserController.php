@@ -137,4 +137,24 @@ class UserController extends Controller
         $travel->apartment_id = $request->apartment_id;
         $travel->save();
     }
+
+    public function getTravels($id)
+    {
+        //ask charbel
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        $travels = $user->travels();
+
+        return response()->json([
+            'status' => 'success',
+            'travels' => $travels,
+        ]);
+    }
 }
