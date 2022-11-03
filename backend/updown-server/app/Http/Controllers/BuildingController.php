@@ -155,4 +155,28 @@ class BuildingController extends Controller
     {
         //ask charbel
     }
+
+    public function addPrice(Request $request, $id)
+    {
+        //ask charbel eza haydi bteshte8el hek aw bada tensha8al b price controller
+        $building = Building::find($id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        try {
+            $building->prices()->create($request->all());
+            return response()->json([
+                'status' => 'success',
+                'building' => $building,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
