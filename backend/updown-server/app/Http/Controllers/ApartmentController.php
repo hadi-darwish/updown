@@ -37,4 +37,20 @@ class ApartmentController extends Controller
             'apartment' => $apartment,
         ]);
     }
+
+    public function getAllApartments()
+    {
+        try {
+            $apartments = Apartment::all();
+            return response()->json([
+                'status' => 'success',
+                'apartments' => $apartments,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartments not found',
+            ], 404);
+        }
+    }
 }
