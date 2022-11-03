@@ -120,4 +120,27 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function triggerPaidBuilding($id)
+    {
+        $building = Building::find($id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        try {
+            $building->update(['is_paid' => !$building->is_paid]);
+            return response()->json([
+                'status' => 'success',
+                'building' => $building,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
