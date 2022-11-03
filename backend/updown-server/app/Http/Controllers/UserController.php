@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Travel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use  Illuminate\Database\Eloquent;
+use Auth;
 
 class UserController extends Controller
 {
@@ -124,5 +126,15 @@ class UserController extends Controller
             'status' => 'success',
             'message' => 'User banned',
         ]);
+    }
+
+    public function createTravel(Request $request)
+    {
+        //ask charbel
+        $user_id = Auth::user()->id;
+        $travel = new Travel();
+        $travel->user_id = $user_id;
+        $travel->apartment_id = $request->apartment_id;
+        $travel->save();
     }
 }
