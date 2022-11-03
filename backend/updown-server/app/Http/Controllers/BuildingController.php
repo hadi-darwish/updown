@@ -58,4 +58,20 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function deleteBuilding($id)
+    {
+        $building = Building::find($id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        $building->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Building deleted',
+        ]);
+    }
 }
