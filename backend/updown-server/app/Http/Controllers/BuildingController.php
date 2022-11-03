@@ -68,11 +68,18 @@ class BuildingController extends Controller
                 'message' => 'Building not found',
             ], 404);
         }
-        $building->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Building deleted',
-        ]);
+        try {
+            $building->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Building deleted',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not deleted',
+            ], 404);
+        }
     }
 
     public function updateBuilding(Request $request, $id)
