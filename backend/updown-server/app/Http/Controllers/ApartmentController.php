@@ -22,4 +22,19 @@ class ApartmentController extends Controller
             ], 404);
         }
     }
+
+    public function getApartment($id)
+    {
+        $apartment = Apartment::find($id);
+        if (!$apartment) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not found',
+            ], 404);
+        }
+        return response()->json([
+            'status' => 'success',
+            'apartment' => $apartment,
+        ]);
+    }
 }
