@@ -143,4 +143,9 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function getOwner($id)
+    {
+        //ask charbel
+    }
 }
