@@ -53,4 +53,27 @@ class ApartmentController extends Controller
             ], 404);
         }
     }
+
+    public function deleteApartment($id)
+    {
+        $apartment = Apartment::find($id);
+        if (!$apartment) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not found',
+            ], 404);
+        }
+        try {
+            $apartment->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Apartment deleted',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not deleted',
+            ], 404);
+        }
+    }
 }
