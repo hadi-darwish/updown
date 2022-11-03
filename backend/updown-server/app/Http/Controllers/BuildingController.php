@@ -42,4 +42,20 @@ class BuildingController extends Controller
             'building' => $building,
         ]);
     }
+
+    public function getAllBuildings()
+    {
+        try {
+            $buildings = Building::all();
+            return response()->json([
+                'status' => 'success',
+                'buildings' => $buildings,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Buildings not found',
+            ], 404);
+        }
+    }
 }
