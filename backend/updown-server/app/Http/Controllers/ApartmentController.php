@@ -99,4 +99,27 @@ class ApartmentController extends Controller
             ], 404);
         }
     }
+
+    public function triggerBanApartment($id)
+    {
+        $apartment = Apartment::find($id);
+        if (!$apartment) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not found',
+            ], 404);
+        }
+        $apartment->is_banned = !$apartment->is_banned;
+        if ($apartment->save()) {
+            return response()->json([
+                'status' => 'success',
+                'apartment' => $apartment,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not updated',
+            ], 404);
+        }
+    }
 }
