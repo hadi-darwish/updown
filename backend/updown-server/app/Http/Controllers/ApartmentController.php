@@ -122,4 +122,27 @@ class ApartmentController extends Controller
             ], 404);
         }
     }
+
+    public function triggerPaidApartment($id)
+    {
+        $apartment = Apartment::find($id);
+        if (!$apartment) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not found',
+            ], 404);
+        }
+        $apartment->is_paid = !$apartment->is_paid;
+        if ($apartment->save()) {
+            return response()->json([
+                'status' => 'success',
+                'apartment' => $apartment,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Apartment not updated',
+            ], 404);
+        }
+    }
 }
