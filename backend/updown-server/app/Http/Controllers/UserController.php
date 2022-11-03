@@ -158,10 +158,10 @@ class UserController extends Controller
         ]);
     }
 
-    public function getTravelsByApartment($id)
+    public function getTravelsByApartment(Request $request)
     {
         //ask charbel
-        $user = User::find($id);
+        $user = User::find($request->user_id);
 
         if (!$user) {
             return response()->json([
@@ -170,7 +170,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        $travels = $user->travels()->where('apartment_id', $id);
+        $travels = $user->travels()->where('apartment_id', $request->apartment_id);
 
         return response()->json([
             'status' => 'success',
