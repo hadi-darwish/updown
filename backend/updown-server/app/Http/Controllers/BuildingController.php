@@ -97,4 +97,27 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function triggerBanBuilding($id)
+    {
+        $building = Building::find($id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        try {
+            $building->update(['is_banned' => !$building->is_banned]);
+            return response()->json([
+                'status' => 'success',
+                'building' => $building,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
