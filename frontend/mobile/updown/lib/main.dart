@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:updown/widgets/top_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,18 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).cardColor,
-        title: Container(
-          color: Theme.of(context).cardColor,
-          child: SvgPicture.asset(
-            'assets/images/logo.svg',
-            semanticsLabel: 'Logo',
-          ),
-        ),
-        toolbarHeight: screenHeight * 0.166,
-        centerTitle: true,
-      ),
-    );
+        appBar: TopBar(
+      screenHeight: screenHeight,
+    ));
   }
 }
