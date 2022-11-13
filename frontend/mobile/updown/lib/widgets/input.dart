@@ -50,8 +50,8 @@ class LabeledInput extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                 ),
               ),
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
               ),
               keyboardType: type == 'Email'
                   ? TextInputType.emailAddress
