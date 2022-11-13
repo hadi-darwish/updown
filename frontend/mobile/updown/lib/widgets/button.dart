@@ -14,35 +14,23 @@ class Button extends StatelessWidget {
           onPressed();
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).secondaryHeaderColor,
+          minimumSize:
+              Size.fromHeight(MediaQuery.of(context).size.height * 0.07),
+          backgroundColor: Theme.of(context).primaryColor,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
         ),
         child: Text(
-          text,
-          style: TextStyle(
-            color: Theme.of(context).cardColor,
-            fontSize: 14,
+          text.toUpperCase(),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
     );
-    // return Container(
-    //   margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-    //   child: ElevatedButton(
-    //     onPressed: () {},
-    //     style: ElevatedButton.styleFrom(
-    //       backgroundColor: Theme.of(context).secondaryHeaderColor,
-    //       padding: const EdgeInsets.symmetric(vertical: 15),
-    //       shape: RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(5),
-    //       ),
-    //     ),
-    //     child: const Text('Login'),
-    //   ),
-    // );
   }
 }
