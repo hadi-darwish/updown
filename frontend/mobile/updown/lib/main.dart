@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
 
 void main() {
@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(cardColor: const Color.fromRGBO(0, 48, 63, 1)),
+      theme: ThemeData(
+          cardColor: const Color.fromRGBO(0, 48, 63, 1),
+          primaryColor: const Color.fromRGBO(0, 48, 63, 1),
+          secondaryHeaderColor: const Color.fromRGBO(89, 219, 174, 1)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -35,8 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        appBar: TopBar(
-      screenHeight: screenHeight,
-    ));
+      appBar: TopBar(
+        screenHeight: screenHeight,
+      ),
+      body: Column(
+        children: const [
+          LabeledInput(placeholder: 'Email', type: 'Email'),
+          LabeledInput(placeholder: 'Password', type: 'Password'),
+        ],
+      ),
+    );
   }
 }
