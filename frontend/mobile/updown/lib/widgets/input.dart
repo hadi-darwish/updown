@@ -16,9 +16,10 @@ class LabeledInput extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               placeholder,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -27,26 +28,26 @@ class LabeledInput extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                   borderSide: const BorderSide(
-                    color: Colors.black,
+                    color: Color.fromRGBO(197, 197, 197, 1),
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                   borderSide: const BorderSide(
-                    color: Colors.black,
+                    color: Color.fromRGBO(197, 197, 197, 1),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(
-                    color: Colors.black,
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
-                hintText: placeholder,
-                hintStyle: const TextStyle(
-                  color: Colors.black,
+                hintText: 'Enter $placeholder',
+                hintStyle: TextStyle(
+                  color: Theme.of(context).primaryColorLight,
                 ),
               ),
               style: const TextStyle(

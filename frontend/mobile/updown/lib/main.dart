@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           cardColor: const Color.fromRGBO(0, 48, 63, 1),
           primaryColor: const Color.fromRGBO(0, 48, 63, 1),
+          primaryColorLight: const Color.fromRGBO(0, 48, 63, 0.5),
           secondaryHeaderColor: const Color.fromRGBO(89, 219, 174, 1)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
