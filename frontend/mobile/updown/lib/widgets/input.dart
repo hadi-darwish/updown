@@ -26,6 +26,8 @@ class LabeledInput extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10),
             child: TextField(
+              cursorWidth: 3,
+              cursorRadius: const Radius.circular(5),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -48,15 +50,25 @@ class LabeledInput extends StatelessWidget {
                 hintText: 'Enter $placeholder',
                 hintStyle: TextStyle(
                   color: Theme.of(context).primaryColorLight,
+                  fontSize: 16,
                 ),
               ),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
+                fontSize: 16,
               ),
               keyboardType: type == 'Email'
                   ? TextInputType.emailAddress
                   : TextInputType.text,
               obscureText: type == 'Password' ? true : false,
+              toolbarOptions: type == 'Password'
+                  ? const ToolbarOptions(
+                      copy: false,
+                      cut: false,
+                      paste: false,
+                      selectAll: false,
+                    )
+                  : null,
             ),
           ),
         ],
