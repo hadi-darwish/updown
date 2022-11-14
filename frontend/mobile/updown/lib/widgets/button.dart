@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  const Button({super.key, required this.text, required this.onPressed});
+  const Button(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.type});
   final String text;
   final Function onPressed;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +21,24 @@ class Button extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           minimumSize:
               Size.fromHeight(MediaQuery.of(context).size.height * 0.07),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor:
+              type == 'primary' ? Theme.of(context).primaryColor : Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
+            side: type == 'secondary'
+                ? BorderSide(color: Theme.of(context).primaryColor, width: 3)
+                : BorderSide.none,
           ),
         ),
         child: Text(
           text.toUpperCase(),
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: type == 'primary'
+                ? Colors.white
+                : Theme.of(context).primaryColor,
             fontSize: 16,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w900,
           ),
         ),
       ),
