@@ -34,6 +34,10 @@ class LabeledInput extends StatelessWidget {
               cursorWidth: 3,
               cursorRadius: const Radius.circular(5),
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
                   borderSide: const BorderSide(
