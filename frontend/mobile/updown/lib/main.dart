@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:updown/widgets/button.dart';
 import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
 
@@ -15,10 +16,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          cardColor: const Color.fromRGBO(0, 48, 63, 1),
-          primaryColor: const Color.fromRGBO(0, 48, 63, 1),
-          primaryColorLight: const Color.fromRGBO(0, 48, 63, 0.5),
-          secondaryHeaderColor: const Color.fromRGBO(89, 219, 174, 1)),
+        fontFamily: 'Nunito',
+        cardColor: const Color.fromRGBO(89, 219, 174, 1),
+        primaryColor: const Color.fromRGBO(0, 48, 63, 1),
+        primaryColorLight: const Color.fromRGBO(0, 48, 63, 0.5),
+        secondaryHeaderColor: const Color.fromRGBO(89, 219, 174, 1),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color.fromRGBO(89, 219, 174, 1),
+          selectionColor: Color.fromRGBO(89, 219, 174, 1),
+          selectionHandleColor: Color.fromRGBO(0, 48, 63, 1),
+        ),
+      ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -43,9 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
         screenHeight: screenHeight,
       ),
       body: Column(
-        children: const [
-          LabeledInput(placeholder: 'Email', type: 'Email'),
-          LabeledInput(placeholder: 'Password', type: 'Password'),
+        children: [
+          const LabeledInput(placeholder: 'Email', type: 'Email'),
+          const LabeledInput(placeholder: 'Password', type: 'Password'),
+          Button(
+            text: 'Login',
+            onPressed: () {
+              print('HIIIIIIIIIIIIII');
+            },
+            type: 'secondary',
+          ),
         ],
       ),
     );
