@@ -7,9 +7,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).primaryColor,
       title: Container(
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).primaryColor,
         child: SvgPicture.asset(
           'assets/images/logo.svg',
           semanticsLabel: 'Logo',
