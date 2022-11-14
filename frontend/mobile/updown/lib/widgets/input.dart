@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class LabeledInput extends StatelessWidget {
   const LabeledInput(
-      {super.key, required this.placeholder, required this.type});
+      {super.key,
+      required this.placeholder,
+      required this.type,
+      required this.textController});
   final String placeholder;
   final String type;
+  final TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class LabeledInput extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10),
             child: TextField(
+              controller: textController,
               cursorWidth: 3,
               cursorRadius: const Radius.circular(5),
               decoration: InputDecoration(

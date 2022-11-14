@@ -45,19 +45,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+    final textController = TextEditingController();
+    final passwordController = TextEditingController();
     return Scaffold(
       appBar: TopBar(
         screenHeight: screenHeight,
       ),
       body: Column(
         children: [
-          const LabeledInput(placeholder: 'Email', type: 'Email'),
-          const LabeledInput(placeholder: 'Password', type: 'Password'),
+          LabeledInput(
+            placeholder: 'Email',
+            type: 'Email',
+            textController: textController,
+          ),
+          LabeledInput(
+              placeholder: 'Password',
+              type: 'Password',
+              textController: passwordController),
           Button(
             text: 'Login',
             onPressed: () {
-              print('HIIIIIIIIIIIIII');
+              print(textController.text);
+              print(passwordController.text);
             },
             type: 'secondary',
           ),
