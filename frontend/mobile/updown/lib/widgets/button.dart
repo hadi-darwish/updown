@@ -19,11 +19,10 @@ class Button extends StatelessWidget {
           onPressed();
         },
         style: ElevatedButton.styleFrom(
-          minimumSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.07),
+          minimumSize: const Size.fromHeight(43),
           backgroundColor:
               type == 'primary' ? Theme.of(context).primaryColor : Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
             side: type == 'secondary'
@@ -32,6 +31,7 @@ class Button extends StatelessWidget {
           ),
         ),
         child: Text(
+          textAlign: TextAlign.center,
           text.toUpperCase(),
           style: TextStyle(
             color: type == 'primary'
