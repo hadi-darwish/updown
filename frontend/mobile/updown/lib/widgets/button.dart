@@ -22,6 +22,8 @@ class Button extends StatelessWidget {
           minimumSize: const Size.fromHeight(43),
           backgroundColor:
               type == 'primary' ? Theme.of(context).primaryColor : Colors.white,
+          foregroundColor:
+              type == 'primary' ? Colors.white : Theme.of(context).primaryColor,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
