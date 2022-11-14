@@ -63,7 +63,9 @@ class _SignInState extends State<SignIn> {
               child: Button(
                 text: 'Guest Mode',
                 type: 'secondary',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/guestModeLogin');
+                },
               ),
             ),
           ],
