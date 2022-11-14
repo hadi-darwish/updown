@@ -19,7 +19,7 @@ class LabeledInput extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
