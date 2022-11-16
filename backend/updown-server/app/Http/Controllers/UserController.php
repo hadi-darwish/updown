@@ -193,6 +193,10 @@ class UserController extends Controller
             $visit->code = Str::random(7);
             $visit->expiry_date = Carbon::now()->addDays(1);
             $visit->save();
+            return response()->json([
+                'status' => 'success',
+                'visit' => $visit,
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -202,45 +206,35 @@ class UserController extends Controller
     }
 
 
-    public function enterGuest(request $request)
+    public function enterGuest(Request $request)
     {
         try {
-            $visit = Visit::where(
-                'user_id',
-                $request->host_id
-            );
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Visit not found',
-            ], 404);
-        }
+            $user = User::find($request->host_id);
+            $visits = $user->visits()
+                ->where('code', $request->code)
+                ->where('expiry_date', '>', Carbon::now())
+                ->get();
 
-
-        if ($visit->code == $request->code) {
             try {
-                $visit->update(['visitor_email', $request->visitor_email]);
+                $visit = $visits[0];
+                $visit = Visit::find($visit->id);
+                $visit->visitor_email = $request->visitor_email;
+                $visit->save();
             } catch (Exception $e) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Visit not updated',
                 ], 404);
             }
-        } else {
+            return response()->json([
+                'status' => 'success',
+                'visit' => $visit,
+            ]);
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Wrong code',
+                'message' => 'Visit not found',
             ], 404);
         }
-        if ($visit->expiry_date < Carbon::now()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Visit expired',
-            ], 404);
-        }
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Visit updated',
-        ], 200);
     }
 }
