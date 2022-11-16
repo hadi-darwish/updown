@@ -30,6 +30,8 @@ class UserController extends Controller
         ]);
     }
 
+
+
     public function getAllUsers()
     {
         $users = User::all();
@@ -183,10 +185,38 @@ class UserController extends Controller
 
     public function createVisit()
     {
-        $userId = Auth::user()->id;
-        $visit = new Visit();
-        $visit->user_id = $userId;
-        $visit->code = Str::random(7);
-        $visit->save();
+        try {
+            $userId = Auth::user()->id;
+            $visit = new Visit();
+            $visit->user_id = $userId;
+            $visit->code = Str::random(7);
+            $visit->save();
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Visit not created',
+            ], 404);
+        }
+    }
+
+
+    public function updateVisit(Request $request)
+    {
+        try {
+            $visit = Visit::where(
+                'user_id',
+                $request->host_id
+            );
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Visit not found',
+            ], 404);
+        }
+        $visit->update($request->all());
+        return response()->json([
+            'status' => 'success',
+            'visit' => $visit,
+        ]);
     }
 }
