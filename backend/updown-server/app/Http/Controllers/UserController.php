@@ -8,6 +8,7 @@ use App\Models\Visit;
 use Illuminate\Http\Request;
 use  Illuminate\Database\Eloquent;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -190,6 +191,7 @@ class UserController extends Controller
             $visit = new Visit();
             $visit->user_id = $userId;
             $visit->code = Str::random(7);
+            $visit->expiry_date = Carbon::now()->addDays(1);
             $visit->save();
         } catch (Exception $e) {
             return response()->json([
@@ -200,7 +202,7 @@ class UserController extends Controller
     }
 
 
-    public function updateVisit(Request $request)
+    public function enterGuest(request $request)
     {
         try {
             $visit = Visit::where(
@@ -213,10 +215,32 @@ class UserController extends Controller
                 'message' => 'Visit not found',
             ], 404);
         }
-        $visit->update($request->all());
+
+
+        if ($visit->code == $request->code) {
+            try {
+                $visit->update(['visitor_email', $request->visitor_email]);
+            } catch (Exception $e) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Visit not updated',
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Wrong code',
+            ], 404);
+        }
+        if ($visit->expiry_date < Carbon::now()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Visit expired',
+            ], 404);
+        }
         return response()->json([
             'status' => 'success',
-            'visit' => $visit,
-        ]);
+            'message' => 'Visit updated',
+        ], 200);
     }
 }
