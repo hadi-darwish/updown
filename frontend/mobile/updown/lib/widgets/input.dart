@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:updown/validators/email_validator.dart';
+import 'package:updown/validators/password_validator.dart';
 
 class LabeledInput extends StatelessWidget {
   const LabeledInput({
@@ -39,6 +40,8 @@ class LabeledInput extends StatelessWidget {
                   message = 'Please enter a $placeholder';
                 } else if (type == 'Email') {
                   message = EmailValidator.validate(value);
+                } else if (type == 'Password') {
+                  message = PasswordValidator.validate(value);
                 }
                 return message;
               },
