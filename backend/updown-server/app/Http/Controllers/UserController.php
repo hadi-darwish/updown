@@ -214,8 +214,14 @@ class UserController extends Controller
                 ->where('code', $request->code)
                 ->where('expiry_date', '>', Carbon::now())
                 ->get();
-
+            if (count($visits) <= 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Visit not found',
+                ], 404);
+            }
             try {
+
                 $visit = $visits[0];
                 $visit = Visit::find($visit->id);
                 if (Auth::user()) {
