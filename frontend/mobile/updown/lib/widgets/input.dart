@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:updown/validators/email_validator.dart';
 
 class LabeledInput extends StatelessWidget {
-  const LabeledInput(
-      {super.key,
-      required this.placeholder,
-      required this.type,
-      required this.textController});
+  const LabeledInput({
+    super.key,
+    required this.placeholder,
+    required this.type,
+    required this.textController,
+  });
   final String placeholder;
   final String type;
   final TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
+    String? message;
     return Container(
       margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Column(
@@ -29,11 +32,29 @@ class LabeledInput extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(top: 10),
-            child: TextField(
+            child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  message = 'Please enter a $placeholder';
+                } else if (type == 'Email') {
+                  message = EmailValidator.validate(value);
+                }
+                return message;
+              },
+
               controller: textController,
               cursorWidth: 3,
               cursorRadius: const Radius.circular(5),
               decoration: InputDecoration(
+                errorText: message != '' ? message : null,
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 contentPadding:
@@ -78,6 +99,7 @@ class LabeledInput extends StatelessWidget {
                       selectAll: false,
                     )
                   : null,
+              // onChanged: (message) => setState(() => message),
             ),
           ),
         ],
