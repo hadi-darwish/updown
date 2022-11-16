@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:updown/validators/email_validator.dart';
 import 'package:updown/widgets/button.dart';
 import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
@@ -63,7 +64,7 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
             ),
             SizedBox(
               child: Button(
-                text: 'Sign In',
+                text: 'Enter',
                 type: 'primary',
                 onPressed: () {
                   print(textController.text);
