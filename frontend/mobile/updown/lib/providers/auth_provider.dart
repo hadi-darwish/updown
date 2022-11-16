@@ -5,10 +5,11 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth with ChangeNotifier {
   late String _token;
-  late String _userId;
+  late Map<String, dynamic> _user;
   late Timer _authTimer;
 
   String get token {
@@ -16,6 +17,13 @@ class Auth with ChangeNotifier {
       return _token;
     }
     return '';
+  }
+
+  Map<String, dynamic> get user {
+    if (_user.isNotEmpty) {
+      return _user;
+    }
+    return {};
   }
 
   Future<int> signIn(String email, String password) async {
@@ -38,6 +46,13 @@ class Auth with ChangeNotifier {
       _token = responseData['authorisation'] != null
           ? responseData['authorisation']['token']
           : '';
+
+      _user = responseData['user'] ?? '';
+
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode(responseData['user']);
+      prefs.setString('userData', userData);
+      notifyListeners();
       return response.statusCode;
     } catch (error) {
       rethrow;
