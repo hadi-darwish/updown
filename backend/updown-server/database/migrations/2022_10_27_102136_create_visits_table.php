@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('set null');
             $table->string('visitor_email')->nullable();
             $table->string('code')->nullable();
+            $table->timestamp('expiry_date');
             $table->timestamp('date')->useCurrent();
         });
     }
