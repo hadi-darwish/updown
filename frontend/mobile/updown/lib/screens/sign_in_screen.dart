@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:updown/providers/auth_provider.dart';
+import 'package:updown/validators/email_validator.dart';
+import 'package:updown/validators/password_validator.dart';
 import 'package:updown/widgets/button.dart';
 import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
@@ -50,7 +53,26 @@ class _SignInState extends State<SignIn> {
               child: Button(
                 text: 'Sign In',
                 type: 'primary',
-                onPressed: () {
+                onPressed: () async {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (EmailValidator.validate(textController.text) == null &&
+                      PasswordValidator.validate(passwordController.text) ==
+                          null) {
+                    if (await Auth().signIn(
+                            textController.text, passwordController.text) ==
+                        200) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', (route) => false);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Invalid email or password'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
+
                   print(textController.text);
                   print(passwordController.text);
                 },
