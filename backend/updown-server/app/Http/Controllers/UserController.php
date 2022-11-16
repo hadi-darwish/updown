@@ -136,7 +136,7 @@ class UserController extends Controller
 
     public function createTravel(Request $request)
     {
-        //ask charbel
+
         $user_id = Auth::user()->id;
         $travel = new Travel();
         $travel->user_id = $user_id;
@@ -146,7 +146,7 @@ class UserController extends Controller
 
     public function getTravels($id)
     {
-        //ask charbel
+
         $user = User::find($id);
 
         if (!$user) {
@@ -166,7 +166,7 @@ class UserController extends Controller
 
     public function getTravelsByApartment(Request $request)
     {
-        //ask charbel
+
         $user = User::find($request->user_id);
 
         if (!$user) {
@@ -218,7 +218,13 @@ class UserController extends Controller
             try {
                 $visit = $visits[0];
                 $visit = Visit::find($visit->id);
-                $visit->visitor_email = $request->visitor_email;
+                if (Auth::user()) {
+                    $visit->visitor_email =
+                        Auth::user()->email;
+                } else {
+                    $visit->visitor_email = $request->visitor_email;
+                }
+
                 $visit->save();
             } catch (Exception $e) {
                 return response()->json([
