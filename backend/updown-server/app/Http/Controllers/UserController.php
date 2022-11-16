@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Travel;
 use App\Models\User;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use  Illuminate\Database\Eloquent;
 use Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
     public function getUser($id)
     {
         $user = User::find($id);
@@ -176,5 +179,14 @@ class UserController extends Controller
             'status' => 'success',
             'travels' => $travels,
         ]);
+    }
+
+    public function createVisit()
+    {
+        $userId = Auth::user()->id;
+        $visit = new Visit();
+        $visit->user_id = $userId;
+        $visit->code = Str::random(7);
+        $visit->save();
     }
 }
