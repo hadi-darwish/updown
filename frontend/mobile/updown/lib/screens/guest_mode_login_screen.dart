@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:updown/providers/guest_provider.dart';
 import 'package:updown/validators/email_validator.dart';
+import 'package:updown/validators/password_validator.dart';
 import 'package:updown/widgets/button.dart';
 import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
@@ -66,7 +68,35 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
               child: Button(
                 text: 'Enter',
                 type: 'primary',
-                onPressed: () {
+                onPressed: () async {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  if (EmailValidator.validate(textController.text) == null &&
+                      PasswordValidator.validate(passwordController.text) ==
+                          null &&
+                      hostController.text.isNotEmpty) {
+                    if (await Guest().Enter(
+                          textController.text,
+                          passwordController.text,
+                          hostController.text,
+                        ) ==
+                        200) {
+                      Navigator.pushNamed(context, '/guest');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Invalid Credentials'),
+                        ),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Please enter a valid email and password',
+                        ),
+                      ),
+                    );
+                  }
                   print(textController.text);
                   print(hostController.text);
                   print(passwordController.text);
