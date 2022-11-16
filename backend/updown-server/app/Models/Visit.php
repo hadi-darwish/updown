@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Visit extends Model
 {
@@ -17,21 +18,9 @@ class Visit extends Model
         'user_id',
         'visitor_email',
         'code',
+        'expiry_date',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     */
-    protected $hidden = [
-        'user_id',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     */
-    protected $casts = [
-        'date' => 'datetime',
-    ];
 
     /**
      * Get the user that owns the Visit
