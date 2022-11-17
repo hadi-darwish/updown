@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('number');
             $table->integer('floor');
-            $table->integer('building_id');
-            $table->integer('owner_id');
+            $table->foreignId('building_id')->constrained('buildings')->onDelete('cascade');
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->boolean('is_paid')->default(0);
             $table->boolean('is_banned')->default(0);
             $table->timestamps();
