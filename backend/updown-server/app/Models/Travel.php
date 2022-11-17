@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Travel extends Model
 {
     use HasFactory;
+    protected $table = 'travels';
 
     /**
      * The attributes that are mass assignable.
@@ -24,10 +25,7 @@ class Travel extends Model
     /**
      * The attributes that should be hidden for serialization.
      */
-    protected $hidden = [
-        'user_id',
-        'apartment_id',
-    ];
+
 
     /**
      * Get the user that owns the Travel
