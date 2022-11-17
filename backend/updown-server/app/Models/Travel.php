@@ -19,7 +19,8 @@ class Travel extends Model
     protected $fillable = [
         'user_id',
         'apartment_id',
-        'date',
+        'from_floor',
+        'to_floor',
     ];
 
     /**
