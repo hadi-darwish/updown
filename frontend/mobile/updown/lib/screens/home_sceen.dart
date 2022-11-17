@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:updown/screens/main_screen.dart';
 import 'package:updown/widgets/nav_bar.dart';
 import 'package:updown/widgets/top_bar.dart';
 
@@ -20,9 +21,7 @@ class _HomeState extends State<Home> {
       body: IndexedStack(
         index: selectedPage,
         children: [
-          Container(
-            child: const Text('Home'),
-          ),
+          MainPage(),
           Container(
             child: const Text('Stats'),
           ),
