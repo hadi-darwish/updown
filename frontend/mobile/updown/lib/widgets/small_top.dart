@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:updown/providers/building_provider.dart';
 
 class ElevatorStatus extends StatelessWidget {
   const ElevatorStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final building = Provider.of<Building>(context);
+    print("samiraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+        '${building.numberOfFloors}');
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 24,
@@ -32,7 +37,7 @@ class ElevatorStatus extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Building Name',
+            '${building.building['name']}',
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 14,
@@ -47,9 +52,9 @@ class ElevatorStatus extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w900,
                   )),
-              const Icon(
+              Icon(
                 Icons.circle,
-                color: Colors.green,
+                color: building.isOn == 0 ? Colors.red : Colors.green,
                 size: 14,
               ),
             ],
