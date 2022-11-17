@@ -46,11 +46,13 @@ class Auth with ChangeNotifier {
           ? responseData['authorisation']['token']
           : '';
 
-      _user = responseData['user'] ?? '';
+      _user = responseData['user'] ?? {};
 
       final prefs = await SharedPreferences.getInstance();
-      final userData = json.encode(responseData['user']);
-      prefs.setString('userData', userData);
+      if (_user.isNotEmpty) {
+        final userData = json.encode(responseData['user']);
+        prefs.setString('userData', userData);
+      }
       notifyListeners();
       return response.statusCode;
     } catch (error) {
