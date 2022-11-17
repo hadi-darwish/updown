@@ -12,6 +12,8 @@ class TextBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
         decoration: BoxDecoration(
           color: theme == 'primary'
@@ -19,7 +21,7 @@ class TextBox extends StatelessWidget {
               : Theme.of(context).secondaryHeaderColor,
           borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        width: 340,
+        width: screenWidth * 0.90,
         height: 50,
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
