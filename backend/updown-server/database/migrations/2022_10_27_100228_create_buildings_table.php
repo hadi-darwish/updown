@@ -22,9 +22,10 @@ return new class extends Migration
             $table->integer('number_of_floors');
             $table->integer('number_of_apartments');
             $table->boolean('is_paid')->default(0);
+            $table->boolean('is_on')->default(1);
             $table->boolean('is_banned')->default(0);
-            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');;
-            $table->timestamp('created_at')->useCurrent();
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
