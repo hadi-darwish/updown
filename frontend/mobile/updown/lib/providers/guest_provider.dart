@@ -16,7 +16,7 @@ class Guest with ChangeNotifier {
 
   Future<int> Enter(String email, String password, String hostId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(json.decode(prefs.getString('userData')!)['email']);
+    // print(json.decode(prefs.getString('userData')!)['email']);
     final url = Uri.parse('${dotenv.env['BASE_URL']}guest');
     try {
       print('start');
@@ -27,8 +27,9 @@ class Guest with ChangeNotifier {
         },
         body: json.encode(
           {
-            'visitor_email':
-                json.decode(prefs.getString('userData')!)['email'] ?? email,
+            'visitor_email': prefs.getString('userData') != null
+                ? json.decode(prefs.getString('userData')!)['email']
+                : email,
             'code': password,
             'host_id': hostId,
           },
@@ -40,8 +41,9 @@ class Guest with ChangeNotifier {
         _email = responseData['visit']['visitor_email'] ?? '';
         _hostId = '${responseData['visit']['user_id']}';
         _password = responseData['visit']['code'] ?? '';
+        prefs.setInt('hostId', responseData['visit']['user_id']);
+        notifyListeners();
       }
-      notifyListeners();
       print(response.statusCode);
       return response.statusCode;
     } catch (error) {
