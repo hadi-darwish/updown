@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment;
+use App\Models\Building;
 use App\Models\Travel;
 use App\Models\User;
 use App\Models\Visit;
@@ -248,5 +250,17 @@ class UserController extends Controller
                 'message' => 'Visit not found',
             ], 404);
         }
+    }
+
+
+    public function getUserBuilding(Request $request)
+    {
+        $apartments = Apartment::where('owner_id', $request->user_id)
+            ->get();
+        $building = $apartments[0]->building()->get();
+        return response()->json([
+            'status' => 'success',
+            'building' => $building,
+        ]);
     }
 }
