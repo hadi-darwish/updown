@@ -36,9 +36,11 @@ class Guest with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
       print(responseData);
-      _email = responseData['visit']['visitor_email'] ?? '';
-      _hostId = '${responseData['visit']['user_id']}';
-      _password = responseData['visit']['code'] ?? '';
+      if (response.statusCode == 200) {
+        _email = responseData['visit']['visitor_email'] ?? '';
+        _hostId = '${responseData['visit']['user_id']}';
+        _password = responseData['visit']['code'] ?? '';
+      }
       notifyListeners();
       print(response.statusCode);
       return response.statusCode;

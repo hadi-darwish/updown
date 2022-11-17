@@ -19,93 +19,124 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
   final textController = TextEditingController();
   final hostController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: TopBar(
-        screenHeight: screenHeight,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.05,
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: TopBar(
+            screenHeight: screenHeight,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.05,
+                ),
+                SizedBox(
+                  child: LabeledInput(
+                    type: 'Email',
+                    placeholder: 'Email',
+                    textController: textController,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.025,
+                ),
+                SizedBox(
+                  child: LabeledInput(
+                    type: 'text',
+                    placeholder: 'Host ID',
+                    textController: hostController,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.025,
+                ),
+                SizedBox(
+                  child: LabeledInput(
+                    type: 'Password',
+                    placeholder: 'Password',
+                    textController: passwordController,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.05,
+                ),
+                SizedBox(
+                  child: Button(
+                    text: 'Enter',
+                    type: 'primary',
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      if (EmailValidator.validate(textController.text) ==
+                              null &&
+                          PasswordValidator.validate(passwordController.text) ==
+                              null &&
+                          hostController.text.isNotEmpty) {
+                        if (await Guest().Enter(
+                              textController.text,
+                              passwordController.text,
+                              hostController.text,
+                            ) ==
+                            200) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/home', (route) => false);
+                          setState(() {
+                            isLoading = false;
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Invalid Credentials'),
+                            ),
+                          );
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Please enter a valid email and password',
+                            ),
+                          ),
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+
+                      setState(() {
+                        isLoading = false;
+                      });
+                      print(textController.text);
+                      print(hostController.text);
+                      print(passwordController.text);
+                    },
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              child: LabeledInput(
-                type: 'Email',
-                placeholder: 'Email',
-                textController: textController,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.025,
-            ),
-            SizedBox(
-              child: LabeledInput(
-                type: 'text',
-                placeholder: 'Host ID',
-                textController: hostController,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.025,
-            ),
-            SizedBox(
-              child: LabeledInput(
-                type: 'Password',
-                placeholder: 'Password',
-                textController: passwordController,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.05,
-            ),
-            SizedBox(
-              child: Button(
-                text: 'Enter',
-                type: 'primary',
-                onPressed: () async {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  if (EmailValidator.validate(textController.text) == null &&
-                      PasswordValidator.validate(passwordController.text) ==
-                          null &&
-                      hostController.text.isNotEmpty) {
-                    if (await Guest().Enter(
-                          textController.text,
-                          passwordController.text,
-                          hostController.text,
-                        ) ==
-                        200) {
-                      Navigator.pushNamed(context, '/guest');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Invalid Credentials'),
-                        ),
-                      );
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Please enter a valid email and password',
-                        ),
-                      ),
-                    );
-                  }
-                  print(textController.text);
-                  print(hostController.text);
-                  print(passwordController.text);
-                },
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        isLoading
+            ? Container(
+                color: Colors.black.withOpacity(0.5),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 }
