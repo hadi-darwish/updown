@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use App\Models\Building;
+use App\Models\ResidesIn;
 use App\Models\Travel;
 use App\Models\User;
 use App\Models\Visit;
@@ -261,6 +262,18 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'building' => $building,
+        ]);
+    }
+
+    public function getUserResideIn(Request $request)
+    {
+        $resides = ResidesIn::where('user_id', $request->user_id)
+            ->get()[0];
+
+        $building = Apartment::where('id', $resides->apartment_id)->first()->building()->first();
+        return response()->json([
+            'status' => 'success',
+            'resides' => $building,
         ]);
     }
 }
