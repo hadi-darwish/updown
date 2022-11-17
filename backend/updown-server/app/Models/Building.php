@@ -23,6 +23,7 @@ class Building extends Model
         'is_paid',
         'is_banned',
         'owner_id',
+        'is_on',
 
     ];
 

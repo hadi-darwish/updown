@@ -10,6 +10,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use  Illuminate\Database\Eloquent;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -41,14 +42,6 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -75,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
     public function travels(): HasMany
     {
         return $this->hasMany(Travel::class);
+    }
+
+    public function building(): HasMany
+    {
+        return $this->hasMany(Building::class);
     }
 
     public function user_type(): BelongsTo

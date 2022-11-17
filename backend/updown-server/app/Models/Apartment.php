@@ -27,10 +27,7 @@ class Apartment extends Model
     /**
      * The attributes that should be hidden for serialization.
      */
-    protected $hidden = [
-        'building_id',
-        'owner_id',
-    ];
+    protected $hidden = [];
 
 
     /**
