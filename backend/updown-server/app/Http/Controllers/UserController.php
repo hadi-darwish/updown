@@ -139,12 +139,25 @@ class UserController extends Controller
 
     public function createTravel(Request $request)
     {
+        try {
+            $user = User::find($request->user_id);
+            $resides = ResidesIn::where('user_id', $request->user_id)
+                ->get()[0];
 
-        $user_id = Auth::user()->id;
-        $travel = new Travel();
-        $travel->user_id = $user_id;
-        $travel->apartment_id = $request->apartment_id;
-        $travel->save();
+            $travel = new Travel();
+            $travel->user_id = $request->user_id;
+            $travel->apartment_id = $resides->apartment_id;
+            $travel->save();
+            return response()->json([
+                'status' => 'success',
+                'travel' => $travel,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Travel not created',
+            ], 404);
+        }
     }
 
     public function getTravels($id)
@@ -267,13 +280,20 @@ class UserController extends Controller
 
     public function getUserResideIn(Request $request)
     {
-        $resides = ResidesIn::where('user_id', $request->user_id)
-            ->get()[0];
+        try {
+            $resides = ResidesIn::where('user_id', $request->user_id)
+                ->get()[0];
 
-        $building = Apartment::where('id', $resides->apartment_id)->first()->building()->first();
-        return response()->json([
-            'status' => 'success',
-            'resides' => $building,
-        ]);
+            $building = Apartment::where('id', $resides->apartment_id)->first()->building()->first();
+            return response()->json([
+                'status' => 'success',
+                'building' => $building,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found',
+            ], 404);
+        }
     }
 }
