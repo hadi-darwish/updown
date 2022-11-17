@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:updown/validators/email_validator.dart';
 import 'package:updown/validators/password_validator.dart';
 
-class LabeledInput extends StatelessWidget {
+class LabeledInput extends StatefulWidget {
   const LabeledInput({
     super.key,
     required this.placeholder,
@@ -14,6 +14,18 @@ class LabeledInput extends StatelessWidget {
   final TextEditingController textController;
 
   @override
+  State<LabeledInput> createState() => _LabeledInputState();
+}
+
+class _LabeledInputState extends State<LabeledInput> {
+  bool _obscuredText = true;
+  void _toggle() {
+    setState(() {
+      _obscuredText = !_obscuredText;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     String? message;
     return Container(
@@ -23,7 +35,7 @@ class LabeledInput extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              placeholder,
+              widget.placeholder,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 14,
@@ -37,16 +49,16 @@ class LabeledInput extends StatelessWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  message = 'Please enter a $placeholder';
-                } else if (type == 'Email') {
+                  message = 'Please enter a ${widget.placeholder}';
+                } else if (widget.type == 'Email') {
                   message = EmailValidator.validate(value);
-                } else if (type == 'Password') {
+                } else if (widget.type == 'Password') {
                   message = PasswordValidator.validate(value);
                 }
                 return message;
               },
 
-              controller: textController,
+              controller: widget.textController,
               cursorWidth: 3,
               cursorRadius: const Radius.circular(5),
               decoration: InputDecoration(
@@ -80,21 +92,34 @@ class LabeledInput extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                hintText: 'Enter $placeholder',
+                hintText: 'Enter ${widget.placeholder}',
                 hintStyle: TextStyle(
                   color: Theme.of(context).primaryColorLight,
                   fontSize: 16,
                 ),
+                suffixIcon: widget.type == 'Password'
+                    ? IconButton(
+                        icon: Icon(
+                          _obscuredText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onPressed: () {
+                          _toggle();
+                        },
+                      )
+                    : null,
               ),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,
               ),
-              keyboardType: type == 'Email'
+              keyboardType: widget.type == 'Email'
                   ? TextInputType.emailAddress
                   : TextInputType.text,
-              obscureText: type == 'Password' ? true : false,
-              toolbarOptions: type == 'Password'
+              obscureText: widget.type == 'Password' ? _obscuredText : false,
+              toolbarOptions: widget.type == 'Password'
                   ? const ToolbarOptions(
                       copy: false,
                       cut: false,
