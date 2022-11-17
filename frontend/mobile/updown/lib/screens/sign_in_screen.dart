@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:updown/providers/auth_provider.dart';
+import 'package:updown/providers/building_provider.dart';
 import 'package:updown/validators/email_validator.dart';
 import 'package:updown/validators/password_validator.dart';
 import 'package:updown/widgets/button.dart';
@@ -68,8 +70,16 @@ class _SignInState extends State<SignIn> {
                       if (await Auth().signIn(
                               textController.text, passwordController.text) ==
                           200) {
+                        await Provider.of<Building>(context, listen: false)
+                            .getBuilding();
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //     context, '/home', (route) => false);
                         Navigator.pushNamedAndRemoveUntil(
-                            context, '/home', (route) => false);
+                          context,
+                          '/home',
+                          (route) => false,
+                        );
+
                         setState(() {
                           isLoading = false;
                         });
@@ -100,7 +110,10 @@ class _SignInState extends State<SignIn> {
                 child: Button(
                   text: 'Guest Mode',
                   type: 'secondary',
-                  onPressed: () {
+                  onPressed: () async {
+                    final s = await SharedPreferences.getInstance();
+                    s.clear();
+                    print(s.get('userData'));
                     Navigator.pushNamed(context, '/guestModeLogin');
                   },
                 ),
