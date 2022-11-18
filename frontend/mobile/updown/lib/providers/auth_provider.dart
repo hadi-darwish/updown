@@ -49,6 +49,7 @@ class Auth with ChangeNotifier {
       _user = responseData['user'] ?? {};
 
       final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', responseData['authorisation']['token']);
       if (_user.isNotEmpty) {
         final userData = json.encode(responseData['user']);
         prefs.setString('userData', userData);
