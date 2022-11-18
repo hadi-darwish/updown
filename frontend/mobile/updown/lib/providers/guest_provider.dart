@@ -9,10 +9,16 @@ class Guest with ChangeNotifier {
   String _email = '';
   String _hostId = '';
   String _password = '';
+  int _hostFloor = 0;
 
-  String get email => _email;
+  String get email {
+    print(_email + 'HIIIIIIIIIIIIIIIIII');
+    return _email;
+  }
+
   String get hostId => _hostId;
   String get password => _password;
+  int get hostFloor => _hostFloor;
 
   Future<int> Enter(String email, String password, String hostId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,13 +44,21 @@ class Guest with ChangeNotifier {
       final responseData = json.decode(response.body);
       print(responseData);
       if (response.statusCode == 200) {
-        _email = responseData['visit']['visitor_email'] ?? '';
+        // print(_email + 'HIIIIIIIIIIIIIIIIII');
+        _email = responseData['visit']['visitor_email'];
+        // print(_email + 'HIIIIIIIIIIIIIIIIII');
         _hostId = '${responseData['visit']['user_id']}';
-        _password = responseData['visit']['code'] ?? '';
+        _password = responseData['visit']['code'];
+        _hostFloor = responseData['floor'];
         prefs.setInt('hostId', responseData['visit']['user_id']);
-        notifyListeners();
+        prefs.setInt('host_floor', responseData['floor']);
+        print(_email + 'HIIIIIIIIIIIIIIIIII');
+        print(prefs.getInt('host_floor'));
+        // notifyListeners();
       }
       print(response.statusCode);
+      notifyListeners();
+
       return response.statusCode;
     } catch (error) {
       rethrow;

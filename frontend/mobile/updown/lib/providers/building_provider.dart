@@ -53,6 +53,7 @@ class Building with ChangeNotifier {
       print(responseData);
       _building = responseData['building'] ?? {};
       _numberOfFloors = responseData['building']['number_of_floors'] ?? 0;
+      prefs.setInt('numberOfFloors', _numberOfFloors);
       _isOn = responseData['building']['is_on'] ?? 0;
       print('----------------------------');
       print(_numberOfFloors);
