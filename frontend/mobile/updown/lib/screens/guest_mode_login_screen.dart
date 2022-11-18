@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:updown/providers/building_provider.dart';
 import 'package:updown/providers/guest_provider.dart';
 import 'package:updown/validators/email_validator.dart';
@@ -91,8 +92,14 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
                             200) {
                           await Provider.of<Building>(context, listen: false)
                               .getBuilding();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/home', (route) => false);
+                          // Navigator.pushNamedAndRemoveUntil(
+                          //     context, '/home', (route) => false);
+                          SharedPreferences.getInstance().then(
+                              (value) => value.setString('mode', 'guest'));
+                          Navigator.pushNamed(
+                            context,
+                            '/home',
+                          );
 
                           setState(() {
                             isLoading = false;
