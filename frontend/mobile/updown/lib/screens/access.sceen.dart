@@ -65,7 +65,15 @@ class _AccessPageState extends State<AccessPage> {
               ],
             ),
           ),
-          Button(text: 'copy', onPressed: () {}, type: 'third'),
+          Button(
+              text: 'copy',
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: password));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Copied to Clipboard"),
+                ));
+              },
+              type: 'third'),
           Button(text: 'share', onPressed: () {}, type: 'secondary'),
         ],
       ),
