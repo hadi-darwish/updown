@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
@@ -13,6 +15,9 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      widget.currentIndex;
+    });
     return BottomNavigationBar(
       onTap: ((value) {
         widget.onTaped(value);

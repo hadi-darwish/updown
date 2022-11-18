@@ -76,11 +76,7 @@ class _SignInState extends State<SignIn> {
                             .then((value) => value.setString('mode', 'user'));
                         // Navigator.pushNamedAndRemoveUntil(
                         //     context, '/home', (route) => false);
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          '/home',
-                          (route) => false,
-                        );
+                        Navigator.pushNamed(context, '/home');
 
                         setState(() {
                           isLoading = false;
