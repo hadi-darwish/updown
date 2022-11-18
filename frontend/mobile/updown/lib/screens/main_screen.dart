@@ -20,9 +20,7 @@ class _MainPageState extends State<MainPage> {
   int? number_of_floors;
   int from_floor = 0;
   String mode = '';
-  // int value = 0;
 
-  // int hostFloor() async {
   @override
   void initState() {
     super.initState();
@@ -93,17 +91,23 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Current Floor',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                     DropdownButton(
                         style: TextStyle(
                           fontSize: 14,
                           color: Theme.of(context).primaryColor,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        underline: Container(
+                          height: 0,
+                          color: Colors.transparent,
                         ),
                         dropdownColor: Theme.of(context).secondaryHeaderColor,
                         hint: const Text('Select Current Floor'),
