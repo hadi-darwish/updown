@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:updown/providers/guest_provider.dart';
 import 'package:updown/screens/main_screen.dart';
+import 'package:updown/screens/stats_screen.dart';
 import 'package:updown/widgets/nav_bar.dart';
 import 'package:updown/widgets/top_bar.dart';
 
@@ -27,9 +30,7 @@ class _HomeState extends State<Home> {
         index: selectedPage,
         children: [
           MainPage(),
-          Container(
-            child: const Text('Stats'),
-          ),
+          StatsPage(),
           Container(
             child: const Text('Settings'),
           ),
