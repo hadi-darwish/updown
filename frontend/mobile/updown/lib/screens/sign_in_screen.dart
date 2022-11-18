@@ -72,6 +72,8 @@ class _SignInState extends State<SignIn> {
                           200) {
                         await Provider.of<Building>(context, listen: false)
                             .getBuilding();
+                        SharedPreferences.getInstance()
+                            .then((value) => value.setString('mode', 'user'));
                         // Navigator.pushNamedAndRemoveUntil(
                         //     context, '/home', (route) => false);
                         Navigator.pushNamedAndRemoveUntil(
