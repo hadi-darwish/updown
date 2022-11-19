@@ -23,6 +23,27 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
   final hostController = TextEditingController();
   final passwordController = TextEditingController();
   bool isLoading = false;
+  String mode = 'guest';
+  String email = 'email';
+
+  @override
+  void initState() {
+    super.initState();
+    Future<void> getMode() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(prefs.getString('mode'));
+      if (prefs.getString('mode') != 'guest') {
+        print(prefs.getString('email'));
+        setState(() {
+          mode = 'user';
+          email = prefs.getString('email') ?? 'email';
+        });
+      }
+    }
+
+    getMode();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -40,16 +61,20 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
                 SizedBox(
                   height: screenHeight * 0.05,
                 ),
-                SizedBox(
-                  child: LabeledInput(
-                    type: 'Email',
-                    placeholder: 'Email',
-                    textController: textController,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.025,
-                ),
+                mode != 'user'
+                    ? SizedBox(
+                        child: LabeledInput(
+                          type: 'Email',
+                          placeholder: 'Email',
+                          textController: textController,
+                        ),
+                      )
+                    : Container(),
+                mode != 'user'
+                    ? SizedBox(
+                        height: screenHeight * 0.025,
+                      )
+                    : Container(),
                 SizedBox(
                   child: LabeledInput(
                     type: 'text',
@@ -79,28 +104,25 @@ class _GuestModeLoginState extends State<GuestModeLogin> {
                         isLoading = true;
                       });
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      if (EmailValidator.validate(textController.text) ==
-                              null &&
-                          PasswordValidator.validate(passwordController.text) ==
-                              null &&
-                          hostController.text.isNotEmpty) {
+                      if (mode != 'user'
+                          ? EmailValidator.validate(textController.text) == null
+                          : true &&
+                              PasswordValidator.validate(
+                                      passwordController.text) ==
+                                  null &&
+                              hostController.text.isNotEmpty) {
                         if (await Guest().Enter(
-                              textController.text,
+                              mode == 'user' ? email : textController.text,
                               passwordController.text,
                               hostController.text,
                             ) ==
                             200) {
                           await Provider.of<Building>(context, listen: false)
                               .getBuilding();
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //     context, '/home', (route) => false);
+
                           SharedPreferences.getInstance().then(
                               (value) => value.setString('mode', 'guest'));
-                          Navigator.pushNamed(
-                            context,
-                            '/home',
-                          );
-
+                          Navigator.pushNamed(context, '/guestMode');
                           setState(() {
                             isLoading = false;
                           });
