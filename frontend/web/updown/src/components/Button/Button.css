@@ -1,0 +1,16 @@
+button {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 24;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.button-primary {
+  background-color: #00303f;
+}
+
+.button-secondary {
+  background-color: #59dbae;
+}

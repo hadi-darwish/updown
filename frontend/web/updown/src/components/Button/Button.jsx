@@ -3,7 +3,7 @@ import React from "react";
 const Button = ({ width, mode, onClick, text }) => {
   return (
     <button
-      className={`button ${mode}`}
+      className={`button-${mode}`}
       style={{ width: width }}
       onClick={onClick}
     >
