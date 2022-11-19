@@ -1,10 +1,11 @@
 import React from "react";
+import "./Input.css";
 
-const Input = ({ label, type }) => {
+const Input = ({ label, type, placeholder }) => {
   return (
     <div className="input-container">
-      <p>{label}</p>
-      <input type={type} />
+      <p className="input-label">{label}</p>
+      <input className="input" type={type} placeholder={placeholder} />
     </div>
   );
 };
