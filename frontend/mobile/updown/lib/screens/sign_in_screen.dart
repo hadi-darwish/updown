@@ -74,9 +74,20 @@ class _SignInState extends State<SignIn> {
                             .getBuilding();
                         SharedPreferences.getInstance()
                             .then((value) => value.setString('mode', 'user'));
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //     context, '/home', (route) => false);
-                        Navigator.pushNamed(context, '/home');
+                        try {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/home', (route) => false);
+                        } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Invalid email or password'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
 
                         setState(() {
                           isLoading = false;
@@ -85,6 +96,7 @@ class _SignInState extends State<SignIn> {
                         setState(() {
                           isLoading = false;
                         });
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Invalid email or password'),
