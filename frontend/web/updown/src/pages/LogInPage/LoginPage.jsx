@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import TopBar from "../../components/TopBar/TopBar";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   return (
@@ -10,12 +11,12 @@ const LoginPage = () => {
       <div className="login">
         <Input
           type={"email"}
-          label={"email"}
+          label={"Email"}
           placeholder={"Enter your Email"}
         />
         <Input
           type={"password"}
-          label={"password"}
+          label={"Password"}
           placeholder={"Enter your Password"}
         />
         <Button

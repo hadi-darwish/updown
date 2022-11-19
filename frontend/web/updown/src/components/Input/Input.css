@@ -14,10 +14,11 @@
 }
 
 .input {
-  padding: 10px;
   border: 1px solid #c5c5c5;
   border-radius: 5px;
   outline: none;
   font-size: 22;
   width: 31rem;
+  height: 50px;
+  color: #00303f;
 }
