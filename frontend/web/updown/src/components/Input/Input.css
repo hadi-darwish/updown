@@ -2,7 +2,13 @@
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  width: fit-content;
+  width: 31rem;
+  align-items: center;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .input-label {
@@ -17,8 +23,14 @@
   border: 1px solid #c5c5c5;
   border-radius: 5px;
   outline: none;
-  font-size: 22;
-  width: 31rem;
+  font-size: 18px;
+  width: 100%;
   height: 50px;
   color: #00303f;
+}
+
+@media only screen and (max-width: 560px) {
+  .input-container {
+    width: 80%;
+  }
 }
