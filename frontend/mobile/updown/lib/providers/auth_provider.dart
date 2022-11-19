@@ -42,22 +42,36 @@ class Auth with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
       print(responseData);
-      _token = responseData['authorisation'] != null
-          ? responseData['authorisation']['token']
-          : '';
+      if (responseData['authorisation'] != null) {
+        _token = responseData['authorisation']['token'];
 
-      _user = responseData['user'] ?? {};
+        _user = responseData['user'] ?? {};
 
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', responseData['authorisation']['token']);
-      if (_user.isNotEmpty) {
-        final userData = json.encode(responseData['user']);
-        prefs.setString('userData', userData);
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', responseData['authorisation']['token']);
+        prefs.setInt('id', responseData['user']['id']);
+        prefs.setString('email', responseData['user']['email']);
+        if (_user.isNotEmpty) {
+          final userData = json.encode(responseData['user']);
+          prefs.setString('userData', userData);
+        }
+        notifyListeners();
+        print(response.statusCode);
+      } else {
+        return 0;
       }
-      notifyListeners();
+
       return response.statusCode;
     } catch (error) {
       rethrow;
     }
+  }
+
+  Future<void> logout() async {
+    _token = '';
+    _user = {};
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    notifyListeners();
   }
 }
