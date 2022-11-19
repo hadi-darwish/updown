@@ -3,7 +3,7 @@ button {
   border: none;
   border-radius: 5px;
   font-size: 24;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   height: 50px;
 }
@@ -14,4 +14,18 @@ button {
 
 .button-secondary {
   background-color: #59dbae;
+}
+
+.button-big {
+  width: 31rem;
+}
+
+.button-small {
+  width: 10rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .button-big {
+    width: 75%;
+  }
 }
