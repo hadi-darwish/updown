@@ -41,9 +41,10 @@ class Guest with ChangeNotifier {
           },
         ),
       );
-      final responseData = json.decode(response.body);
-      print(responseData);
+
       if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        print(responseData);
         // print(_email + 'HIIIIIIIIIIIIIIIIII');
         _email = responseData['visit']['visitor_email'];
         // print(_email + 'HIIIIIIIIIIIIIIIIII');

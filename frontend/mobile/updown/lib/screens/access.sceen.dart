@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:updown/providers/auth_provider.dart';
+import 'package:updown/providers/building_provider.dart';
 import 'package:updown/widgets/button.dart';
 import 'package:updown/widgets/small_top.dart';
 import 'dart:convert';
-
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -19,8 +21,16 @@ class AccessPage extends StatefulWidget {
 class _AccessPageState extends State<AccessPage> {
   String password = 'password';
   bool isLoading = false;
+  Future<void> share(id, password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('mode', 'user');
+    await Share.share(
+        'Hey, I have invited you to join my building on UpDown.\n Here is the Host ID: $id  \n and Password: $password');
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Provider.of<Building>(context).getBuilding();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Stack(
@@ -139,7 +149,32 @@ class _AccessPageState extends State<AccessPage> {
                     ));
                   },
                   type: 'third'),
-              Button(text: 'share', onPressed: () {}, type: 'secondary'),
+              Button(
+                  text: 'share',
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    int id = prefs.getInt('id') as int;
+                    share(id, password);
+                  },
+                  type: 'secondary'),
+              Button(
+                  text: 'guest mode',
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('mode', 'user');
+                    Navigator.pushNamed(context, '/guestModeLogin');
+                  },
+                  type: 'secondary'),
+              Button(
+                  text: 'Logout',
+                  onPressed: () {
+                    Auth().logout();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/signIn', (route) => false);
+                  },
+                  type: 'primary')
             ],
           ),
         ),
