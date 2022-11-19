@@ -15,7 +15,7 @@ const request = async ({ method, url, data }) => {
 
     return response.data;
   } catch (error) {
-    return error.response;
+    throw error;
   }
 };
 

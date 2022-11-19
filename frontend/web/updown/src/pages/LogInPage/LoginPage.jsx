@@ -5,10 +5,12 @@ import Input from "../../components/Input/Input";
 import TopBar from "../../components/TopBar/TopBar";
 import "./LoginPage.css";
 import request from "../../config/axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const SignUp = () => {
     const data = {
@@ -24,6 +26,7 @@ const LoginPage = () => {
         console.log(response);
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(response.result));
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error);
