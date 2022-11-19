@@ -20,8 +20,11 @@ class Button extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(43),
-          backgroundColor:
-              type == 'primary' ? Theme.of(context).primaryColor : Colors.white,
+          backgroundColor: type == 'primary'
+              ? Theme.of(context).primaryColor
+              : type == 'third'
+                  ? Theme.of(context).secondaryHeaderColor
+                  : Colors.white,
           foregroundColor:
               type == 'primary' ? Colors.white : Theme.of(context).primaryColor,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
