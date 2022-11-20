@@ -40,6 +40,7 @@ const HomePage = () => {
       .then((response) => {
         console.log(response);
         setBuildingId(response.building.id);
+        localStorage.setItem("buildingId", response.building.id);
         setBuildingName(response.building.name);
         setIsOn(response.building.is_on);
       })
@@ -57,7 +58,12 @@ const HomePage = () => {
       .then((response) => {
         console.log(response);
         setTax(response.prices[0].tax);
+        localStorage.setItem("tax", response.prices[0].tax);
         setPrice_per_travel(response.prices[0].price_per_travel);
+        localStorage.setItem(
+          "price_per_travel",
+          response.prices[0].price_per_travel
+        );
       })
       .catch((error) => {
         console.log(error);
