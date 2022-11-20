@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  font-family: "Nunito";
+  background-color: #f5f4f4;
+  height: 100vh;
 }
 
 .App-logo {
