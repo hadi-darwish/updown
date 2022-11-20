@@ -51,7 +51,7 @@ const LoginPage = () => {
           <Button
             mode={"primary"}
             onClick={SignUp}
-            text={"Signup"}
+            text={"Signin"}
             width={"big"}
           />
         </div>
