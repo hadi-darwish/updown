@@ -23,8 +23,8 @@ const LoginPage = () => {
     })
       .then((response) => {
         console.log(response);
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.result));
+        localStorage.setItem("token", response.authorisation.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/home");
       })
       .catch((error) => {
