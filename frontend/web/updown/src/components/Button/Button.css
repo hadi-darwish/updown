@@ -2,8 +2,9 @@ button {
   color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 24;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 900;
+  font-family: "Nunito";
   text-transform: uppercase;
   height: 50px;
 }
