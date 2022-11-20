@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ApartmentStats from "../../components/ApartmentStats/ApartmentStats";
 import Button from "../../components/Button/Button";
+import request from "../../config/axios";
 import "./StatsPage.css";
 
 const StatsPage = () => {
+  const [apartments, setApartments] = useState([]);
+
+  useEffect(() => {
+    request({
+      method: "post",
+      url: "building_apartments",
+      data: {
+        building_id: localStorage.getItem("buildingId"),
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setApartments(response.apartments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div className="home-container">
-      <h1>Home</h1>
-      <div className="building-info">
-        <div>Apartment Number</div>
-        <div>Total = $10 </div>
-        <div> Number of residents = 5</div>
-        <div>
-          {" "}
-          Paid <div></div>
-          <Button mode={"primary"} text={"Pay"} width={"small"} />
-        </div>
-        <div>
-          <Button
-            mode={"primary"}
-            onClick={null}
-            text={"BAN"}
-            width={"small"}
-          />
-        </div>
-      </div>
+      <h1>Stats</h1>
+      {apartments.map((apartment) => {
+        return <ApartmentStats apartment={apartment} />;
+      })}
     </div>
   );
 };
