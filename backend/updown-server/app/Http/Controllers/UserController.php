@@ -147,6 +147,8 @@ class UserController extends Controller
             $travel = new Travel();
             $travel->user_id = $request->user_id;
             $travel->apartment_id = $resides->apartment_id;
+            $travel->from_floor = $request->from_floor;
+            $travel->to_floor = $request->to_floor;
             $travel->save();
             return response()->json([
                 'status' => 'success',
@@ -203,11 +205,15 @@ class UserController extends Controller
     public function createVisit()
     {
         try {
+
             $userId = Auth::user()->id;
+            $resides = ResidesIn::where('user_id', $userId)->get()[0];
+            $apartment = Apartment::where('id', $resides->apartment_id)->first();
             $visit = new Visit();
             $visit->user_id = $userId;
             $visit->code = Str::random(7);
             $visit->expiry_date = Carbon::now()->addDays(1);
+            $visit->apartment_id = $apartment->id;
             $visit->save();
             return response()->json([
                 'status' => 'success',
@@ -237,6 +243,11 @@ class UserController extends Controller
                 ], 404);
             }
             try {
+                $resides = ResidesIn::where('user_id', $request->host_id)
+                    ->get()[0];
+
+                $apartment = Apartment::where('id', $resides->apartment_id)->first();
+                $floor = $apartment->floor;
 
                 $visit = $visits[0];
                 $visit = Visit::find($visit->id);
@@ -257,6 +268,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'visit' => $visit,
+                'floor' => $floor
             ]);
         } catch (Exception $e) {
             return response()->json([
