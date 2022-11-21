@@ -308,4 +308,13 @@ class UserController extends Controller
             ], 404);
         }
     }
+    public function getOwnerBuilding()
+    {
+        $user = Auth::user();
+        $building = Building::where('owner_id', $user->id)->first();
+        return response()->json([
+            'status' => 'success',
+            'building' => $building,
+        ]);
+    }
 }
