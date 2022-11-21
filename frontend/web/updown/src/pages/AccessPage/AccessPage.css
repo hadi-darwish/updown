@@ -1,0 +1,72 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  margin: 5vh 10.5vw;
+  margin-bottom: 20px;
+  color: #00303f;
+  gap: 1.5rem;
+}
+
+h1,
+h2 {
+  align-self: flex-start;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.building-info {
+  background-color: #eaeaea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 30px;
+  font-size: 20px;
+  font-weight: 800;
+}
+.message {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 30px;
+  font-size: 20px;
+  font-weight: 800;
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+}
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  justify-content: center;
+  align-items: center;
+  color: #00303f;
+  gap: 1.5rem;
+}
+
+.popup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.popup-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media only screen and (max-width: 1200px) {
+  .building-info {
+    font-size: 16px;
+  }
+}
