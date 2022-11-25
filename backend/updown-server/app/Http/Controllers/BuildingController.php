@@ -184,4 +184,38 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function getPrices(Request $request)
+    {
+
+        $building = Building::find($request
+            ->building_id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        $resides = ResidesIn::where('user_id', Auth::user()->id)
+            ->get()[0];
+
+        $apartment = Apartment::where('id', $resides->apartment_id)->first();
+        $travels = count($apartment->travels);
+        $guests = count($apartment->visits);
+
+        try {
+            $prices = $building->prices;
+            return response()->json([
+                'status' => 'success',
+                'prices' => $prices,
+                'travels' => $travels,
+                'guests' => $guests,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
