@@ -55,4 +55,10 @@ class Apartment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+    public function travels(): HasMany
+    {
+        return $this->hasMany(Travel::class);
+    }
 }
