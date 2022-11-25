@@ -194,4 +194,16 @@ class ApartmentController extends Controller
             'numberOfResidents' => count($apartment->residents)
         ]);
     }
+
+    public function addResident(Request $request)
+    {
+        $res = new ResidesIn();
+        $res->apartment_id = $request->apartment_id;
+        $res->user_id = $request->user_id;
+        $res->save();
+        return response()->json([
+            'status' => 'success',
+            'result' => $res,
+        ]);
+    }
 }
