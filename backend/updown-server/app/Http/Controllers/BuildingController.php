@@ -251,4 +251,34 @@ class BuildingController extends Controller
             'building' => $building,
         ]);
     }
+
+    public function getAllResidents(Request $request)
+    {
+
+        $building = Building::find($request->building_id);
+        if (!$building) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Building not found',
+            ], 404);
+        }
+        try {
+            $apartments = $building->apartments;
+            $residents = [];
+            foreach ($apartments as $apartment) {
+                foreach ($apartment->residents as $resident) {
+                    $residents[] = $resident->user;
+                }
+            }
+            return response()->json([
+                'status' => 'success',
+                'residents' => $residents,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
