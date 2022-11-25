@@ -236,4 +236,19 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+    public function triggerStatus(Request $request)
+    {
+
+        $building = Building::find($request->building_id);
+        if ($building->is_on == 0) {
+            $building->update(['is_on' => 1]);
+        } else {
+            $building->update(['is_on' => 0]);
+        }
+        return response()->json([
+            'status' => 'success',
+            'building' => $building,
+        ]);
+    }
 }
