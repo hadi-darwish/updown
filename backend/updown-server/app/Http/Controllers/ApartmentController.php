@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Building;
+use App\Models\ResidesIn;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -101,8 +103,9 @@ class ApartmentController extends Controller
         }
     }
 
-    public function triggerBanApartment($id)
+    public function triggerBanApartment(Request $request)
     {
+        $id = $request->apartment_id;
         $apartment = Apartment::find($id);
         if (!$apartment) {
             return response()->json([
@@ -124,8 +127,9 @@ class ApartmentController extends Controller
         }
     }
 
-    public function triggerPaidApartment($id)
+    public function triggerPaidApartment(Request $request)
     {
+        $id = $request->apartment_id;
         $apartment = Apartment::find($id);
         if (!$apartment) {
             return response()->json([
@@ -169,5 +173,15 @@ class ApartmentController extends Controller
                 'message' => 'Residents not found',
             ], 404);
         }
+    }
+
+
+    public function getBuildingApartments(Request $request)
+    {
+        $building = Building::find($request->building_id);
+        return response()->json([
+            'status' => 'success',
+            'apartments' => $building->apartments,
+        ]);
     }
 }
