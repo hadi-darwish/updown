@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment;
 use App\Models\Building;
+use App\Models\Price;
+use App\Models\ResidesIn;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use  Illuminate\Database\Eloquent;
+use Auth;
 
 class BuildingController extends Controller
 {
@@ -150,16 +155,9 @@ class BuildingController extends Controller
             ], 404);
         }
     }
-
-    public function getOwner($id)
+    public function addPrice(Request $request)
     {
-        //ask charbel
-    }
-
-    public function addPrice(Request $request, $id)
-    {
-        //ask charbel eza haydi bteshte8el hek aw bada tensha8al b price controller
-        $building = Building::find($id);
+        $building = Building::find($request->building_id);
         if (!$building) {
             return response()->json([
                 'status' => 'error',
@@ -167,7 +165,14 @@ class BuildingController extends Controller
             ], 404);
         }
         try {
-            $building->prices()->create($request->all());
+            $prices = new Price();
+            $prices->building_id = $request->building_id;
+            $prices->tax = $request->tax;
+            $prices->price_per_travel = $request->price_per_travel;
+            $prices->start_date = $request->start_date;
+            $prices->end_date = $request->end_date;
+            $prices->save();
+
             return response()->json([
                 'status' => 'success',
                 'building' => $building,
