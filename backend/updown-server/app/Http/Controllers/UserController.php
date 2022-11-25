@@ -13,6 +13,7 @@ use  Illuminate\Database\Eloquent;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -46,8 +47,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function deleteUser($id)
+    public function deleteUser(Request $request)
     {
+        $id = $request->user_id;
         $user = User::find($id);
 
         if (!$user) {
@@ -115,9 +117,10 @@ class UserController extends Controller
         ]);
     }
 
-    public function triggerBanUser($id)
+    public function triggerBanUser(Request $request)
 
     {
+        $id = $request->user_id;
         $user = User::find($id);
 
         if (!$user) {
@@ -315,6 +318,18 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'building' => $building,
+        ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+
+        $user = User::find($request->user_id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
         ]);
     }
 }
