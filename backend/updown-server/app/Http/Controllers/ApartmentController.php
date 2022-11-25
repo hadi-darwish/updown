@@ -184,4 +184,14 @@ class ApartmentController extends Controller
             'apartments' => $building->apartments,
         ]);
     }
+
+    public function numberApartmentTravels(Request $request)
+    {
+        $apartment = Apartment::find($request->apartment_id);
+        return response()->json([
+            'status' => 'success',
+            'travels' => count($apartment->travels),
+            'numberOfResidents' => count($apartment->residents)
+        ]);
+    }
 }
