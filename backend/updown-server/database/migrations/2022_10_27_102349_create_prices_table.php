@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('price_per_travel');
             $table->date('start_date');
             $table->date('end_date');
+            $table->timestamps();
         });
     }
 
