@@ -218,4 +218,22 @@ class BuildingController extends Controller
             ], 404);
         }
     }
+
+
+    public function getBuildingPrice(Request $request)
+    {
+        $building = Building::find($request->building_id);
+        try {
+            $prices = $building->prices;
+            return response()->json([
+                'status' => 'success',
+                'prices' => $prices,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
