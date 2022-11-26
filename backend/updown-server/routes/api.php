@@ -19,4 +19,5 @@ Route::post('travel', [UserController::class, 'createTravel']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', [AuthController::class, 'user']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
