@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('apartment/{id}', [ApartmentController::class, 'deleteApartment']);
     Route::put('apartment/{id}', [ApartmentController::class, 'updateApartment']);
     Route::post('apartment', [ApartmentController::class, 'createApartment']);
+    Route::get('prices', [PriceController::class, 'getAllPrices']);
 });
