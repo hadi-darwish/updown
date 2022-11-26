@@ -38,4 +38,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('building/{id}', [BuildingController::class, 'getBuilding']);
     Route::delete('building/{id}', [BuildingController::class, 'deleteBuilding']);
     Route::put('building/{id}', [BuildingController::class, 'updateBuilding']);
+    Route::post('building', [BuildingController::class, 'createBuilding']);
 });
