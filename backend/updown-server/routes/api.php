@@ -31,4 +31,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('apartment', [ApartmentController::class, 'createApartment']);
     Route::get('prices', [PriceController::class, 'getAllPrices']);
     Route::post('prices', [BuildingController::class, 'getPrices']);
+    Route::delete('price/{id}', [PriceController::class, 'deletePrice']);
 });
