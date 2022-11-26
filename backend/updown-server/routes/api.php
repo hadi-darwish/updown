@@ -48,4 +48,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('ban_apartment', [ApartmentController::class, 'triggerBanApartment']);
     Route::post('pay_apartment', [ApartmentController::class, 'triggerPaidApartment']);
     Route::post('ban_user', [UserController::class, 'triggerBanUser']);
+    Route::post('residents', [BuildingController::class, 'getAllResidents']);
 });
