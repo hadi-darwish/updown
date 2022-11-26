@@ -43,4 +43,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('owner_building', [UserController::class, 'getOwnerBuilding']);
     Route::post('building_price', [BuildingController::class, 'getBuildingPrice']);
     Route::put('elevator_status', [BuildingController::class, 'triggerStatus']);
+    Route::post('building_apartments', [ApartmentController::class, 'getBuildingApartments']);
 });
