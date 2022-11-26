@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Popup from "reactjs-popup";
 import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
 import request from "../../config/axios";
 import "./HomePage.css";
 
@@ -14,13 +16,14 @@ const HomePage = () => {
   const send = () => {
     const config = {
       Host: "smtp.elasticemail.com",
-      Username: "vifodi7767@pamaweb.com",
-      Password: "72DFADEB3EB5DFDF9066B80C94E8A3B45119",
+      Username: "hadidarwish999@gmail.com",
+      Password: "F0A692FDBF5A1C0CF99133920EDD56913BD6",
       Port: "2525",
       //   SecureToken: "c911847c-cc5b-455c-8184-ffe3ec2a4315",
-      To: "vifodi7767@pamaweb.com",
-      From: "vifodi7767@pamaweb.com",
+      To: ["khaledfaour2@gmail.com", "hadidarwish999@gmail.com"],
+      From: "hadi.darwish.03@gmail.com",
       Subject: "This is the subject",
+      // Body: body,
       Body: body,
     };
 
@@ -40,6 +43,7 @@ const HomePage = () => {
       .then((response) => {
         console.log(response);
         setBuildingId(response.building.id);
+        console.log(response.building.id);
         localStorage.setItem("buildingId", response.building.id);
         setBuildingName(response.building.name);
         setIsOn(response.building.is_on);
@@ -47,7 +51,7 @@ const HomePage = () => {
           method: "post",
           url: "building_price",
           data: {
-            building_id: buildingId,
+            building_id: response.building.id,
           },
         })
           .then((response) => {
@@ -86,6 +90,24 @@ const HomePage = () => {
       });
   };
 
+  const editPrices = () => {
+    request({
+      method: "put",
+      url: "price",
+      data: {
+        building_id: buildingId,
+        tax,
+        price_per_travel,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="home-container">
       <h1>Home</h1>
@@ -94,12 +116,68 @@ const HomePage = () => {
         <div>Tax = ${tax}</div>
         <div>Price/Travel = ${price_per_travel}</div>
         <div>
-          <Button
-            mode={"primary"}
-            onClick={null}
-            text={"Edit"}
-            width={"small"}
-          />
+          <Popup
+            overlayStyle={{
+              background: "rgba(0, 0, 0, 0.5)",
+              width: "100%",
+              height: "100%",
+              position: "fixed",
+              top: "0",
+              left: "0",
+              zIndex: "9999",
+            }}
+            modal
+            nested
+            position="right center"
+            trigger={
+              <button>
+                {" "}
+                <Button mode={"primary"} text={"Edit"} width={"small"} />{" "}
+              </button>
+            }
+          >
+            {(close) => (
+              <div className="modal popup-container">
+                <button className="close" onClick={close}>
+                  &times;
+                </button>
+                <h1>Edit Prices</h1>
+                <div className="popup-inputs">
+                  <Input
+                    type={"text"}
+                    label={"Tax"}
+                    placeholder={"Tax"}
+                    onChange={(e) => setTax(e.target.value)}
+                  />
+                  <Input
+                    type={"text"}
+                    label={"Price/Travel"}
+                    placeholder={"Price/Travel"}
+                    onChange={(e) => setPrice_per_travel(e.target.value)}
+                  />
+                </div>
+                <div className="popup-buttons">
+                  <Button
+                    mode={"primary"}
+                    text={"Save"}
+                    width={"small"}
+                    onClick={() => {
+                      editPrices();
+                      close();
+                    }}
+                  />
+                  <Button
+                    mode={"secondary"}
+                    text={"Cancel"}
+                    width={"small"}
+                    onClick={() => {
+                      close();
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </Popup>
         </div>
       </div>
       <div className="building-info">
