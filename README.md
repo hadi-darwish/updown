@@ -32,13 +32,24 @@
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
 
-| Landing                                                                  | Home/Home                                                        |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| ![Landing](https://github.com/hadi-darwish/updown/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/hadi-darwish/updown/demo/.jpg) |
+| Login                                 | Home                         |
+| ------------------------------------- | ---------------------------- |
+| ![Login](./demo/Sign%20In%20Page.svg) | ![Home](./demo/Home.svg)     |
+| Stats                                 | Access                       |
+| ![Stats](./demo/Statistics.svg)       | ![Access](./demo/Access.svg) |
 
-| Artists results                                 | Artist's Albums                                                  |
-| ----------------------------------------------- | ---------------------------------------------------------------- |
-| ![](https://github.com/hadi-darwish/updown.jpg) | ![](https://github.com/hadi-darwish/updown/demo/Albums_Page.jpg) |
+| Geust Login                                          | Guest Home                               |
+| ---------------------------------------------------- | ---------------------------------------- |
+| ![Geust Login ](./demo/Guest%20Sign%20In%20Page.svg) | ![Guest Home  ](./demo/Guest%20Home.svg) |
+| Manager Home                                         |
+
+![Geust Login ](./demo/ManagerHome.svg)
+Manager Stats
+
+![Geust Login ](./demo/Stats.svg)
+Manager Access
+
+![Geust Login ](./demo/Accessibilities.svg)
 
 <br><br>
 
@@ -48,16 +59,32 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 - This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
 - Also this project uses ReactJS which is a free and open-source front-end JavaScript library for building user interfaces based on UI components.
-  -For server side Laravel is used which is a free and open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.
+- For server side Laravel is used which is a free and open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony.
 
 <br><br>
 <img src="./readme/title5.svg"/>
 
-> Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Using the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing                                                                                                                            | Home/Search                                                                                                                           |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Landing](<https://github.com/[julescript/spotifyndr/blob/master/demo/Landing_Page.jpg](https://github.com/hadi-darwish/updown)>) | ![Home/Search](<[https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg](https://github.com/hadi-darwish/updown)>) |
+Manager Home
+
+![Manager Home ](./demo/ManagerHome.png)
+Manager Stats
+
+![Manager Home ](./demo/stats.png)
+Manager Access
+
+![Manager Access ](./demo/Accessibilities.png)
+
+| Login                            | Home/elevator off                |
+| -------------------------------- | -------------------------------- |
+| ![Login](./demo/login.gif)       | ![Home](./demo/elevator_off.gif) |
+| Home/elevator on                 | Stats                            |
+| ![Stats](./demo/elevator_on.gif) | ![Access](./demo/StatsUser.png)  |
+
+| Access                             | Guest Home                           |
+| ---------------------------------- | ------------------------------------ |
+| ![Geust Login ](./demo/access.gif) | ![Guest Home  ](./demo/guestgif.gif) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
@@ -83,11 +110,81 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/hadi-darwish/updown.git
    ```
-2. run Laravel server
+
+#### To Run Laravel Server on your machine
+
+1. Create a database locally named updowndb
+
+2. Navigate to the backend folder
+   ```sh
+   cd updown/backend/updown-server
    ```
-   php artisan serve
+3. install laravel vendor
+   ```sh
+   composer install or php composer.phar install
    ```
-3. Open flutter app
+4. copy env file
+   ```sh
+   mv .env.example .env or  cp .env.example .env or copy .env.example .env
    ```
-   connect to same network as server
+5. generate laravel key
+   ```sh
+   php artisan key:generate
+   ```
+6. Inside the .env file in your backend folder
+
+   - Insert the db name as follow -> DB_DATABASE= -> DB_DATABASE=updowndb
+
+7. Run migration
+   ```sh
+   php artisan migrate
+   ```
+8. Run the seeder
+   ```sh
+   php artisan db:seed
+   ```
+9. Start the Server
+   - Get your local network ipv4
+   ```sh
+   ipconfig
+   ```
+   - run this command
+   ```sh
+   php artisan serve --host=YOUR_IPV4 --port=8000
+   ```
+
+#### To Run React project on your machine
+
+1. Navigate to the Frontend folder then web folder and install dependencies
+   ```sh
+   cd updown/frontend/web/updown
+   npm install
+   ```
+2. copy env file
+   ```sh
+   mv .env.example .env or  cp .env.example .env or copy .env.example .env
+   ```
+3. Inside the .env file in your folder
+   - Insert the db name as follow -> REACT_APP_BASE_URL= -> REACT_APP_BASE_URL=http://YOUR_IPV4/8000/api/
+4. Run the start up command
+   ```sh
+   npm start
+   ```
+
+#### To Run React Flutter on your machine
+
+1. Navigate to the Frontend folder then mobile folder and install dependencies
+   ```sh
+   cd updown/frontend/mobile/updown
+   flutter pub get
+   ```
+2. copy env file
+   ```sh
+   mv .env.example .env or  cp .env.example .env or copy .env.example .env
+   ```
+3. Inside the .env file in your backend folder
+   - Insert the db name as follow -> BASE_URL= -> BASE_URL=http://YOUR_IPV4/8000/api/
+4. Run the start up command
+   ```sh
+   flutter run
    ```
