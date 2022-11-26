@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204208997305",
+    "project_id": "updown-7db17",
+    "storage_bucket": "updown-7db17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204208997305:android:2e27c8516340640fc76c68",
+        "android_client_info": {
+          "package_name": "com.example.updown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204208997305-r7dps351gl32uqe43d8dg91t3bvs0qhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxyUB2a_TTRf6VO5vnHP_sTmxrGyBjlR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204208997305-r7dps351gl32uqe43d8dg91t3bvs0qhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

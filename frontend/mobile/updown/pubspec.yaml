@@ -43,6 +43,8 @@ dependencies:
   share_plus: ^6.3.0
   cron: ^0.5.1
   flutter_launcher_icons: ^0.11.0
+  firebase_core: ^2.3.0
+  firebase_messaging: ^14.1.1
 
 dev_dependencies:
   flutter_test:
