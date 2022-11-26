@@ -40,30 +40,36 @@ class Auth with ChangeNotifier {
           },
         ),
       );
-      final responseData = json.decode(response.body);
-      print(responseData);
-      if (responseData['authorisation'] != null) {
-        _token = responseData['authorisation']['token'];
+      try {
+        final responseData = json.decode(response.body);
 
-        _user = responseData['user'] ?? {};
+        print(responseData);
+        if (responseData['authorisation'] != null) {
+          _token = responseData['authorisation']['token'];
 
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', responseData['authorisation']['token']);
-        prefs.setInt('id', responseData['user']['id']);
-        prefs.setString('email', responseData['user']['email']);
-        if (_user.isNotEmpty) {
-          final userData = json.encode(responseData['user']);
-          prefs.setString('userData', userData);
+          _user = responseData['user'] ?? {};
+
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', responseData['authorisation']['token']);
+          prefs.setInt('id', responseData['user']['id']);
+          prefs.setString('email', responseData['user']['email']);
+          if (_user.isNotEmpty) {
+            final userData = json.encode(responseData['user']);
+            prefs.setString('userData', userData);
+          }
+          notifyListeners();
+          print(response.statusCode);
+        } else {
+          return 0;
         }
-        notifyListeners();
-        print(response.statusCode);
-      } else {
-        return 0;
-      }
 
-      return response.statusCode;
+        return response.statusCode;
+      } catch (error) {
+        rethrow;
+      }
     } catch (error) {
-      rethrow;
+      final responseData = '';
+      return 0;
     }
   }
 
