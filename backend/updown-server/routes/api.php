@@ -50,4 +50,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('ban_user', [UserController::class, 'triggerBanUser']);
     Route::post('residents', [BuildingController::class, 'getAllResidents']);
     Route::put('password', [UserController::class, 'changePassword']);
+    Route::post('add_resident', [ApartmentController::class, 'addResident']);
 });
