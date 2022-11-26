@@ -40,4 +40,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('building/{id}', [BuildingController::class, 'updateBuilding']);
     Route::post('building', [BuildingController::class, 'createBuilding']);
     Route::get('visit', [UserController::class, 'createVisit']);
+    Route::get('owner_building', [UserController::class, 'getOwnerBuilding']);
 });
