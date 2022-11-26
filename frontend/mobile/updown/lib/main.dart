@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:updown/firebase_options.dart';
 import 'package:updown/providers/building_provider.dart';
 import 'package:updown/providers/guest_provider.dart';
+import 'package:updown/providers/travel_provider.dart';
 import 'package:updown/screens/guest_mode_login_screen.dart';
 import 'package:updown/screens/guest_screen.dart';
 import 'package:updown/screens/home_sceen.dart';
@@ -14,8 +18,12 @@ import 'package:updown/widgets/input.dart';
 import 'package:updown/widgets/top_bar.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(
       fileName: '.env'); // This is where you can store your API keys
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -31,6 +39,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => Guest()),
         ChangeNotifierProvider(create: (context) => Building()),
+        ChangeNotifierProvider(create: (context) => Travel()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -56,5 +65,28 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class Notification extends StatefulWidget {
+  const Notification({super.key});
+
+  @override
+  State<Notification> createState() => _NotificationState();
+}
+
+class _NotificationState extends State<Notification> {
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseMessaging.instance.getToken().then((token) {
+      print(token);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
