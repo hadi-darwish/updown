@@ -14,3 +14,4 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('guest', [UserController::class, 'enterGuest']);
 Route::post('rm', [UserController::class, 'getUserBuilding']);
+Route::post('building_user', [UserController::class, 'getUserResideIn']);
