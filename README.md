@@ -12,13 +12,19 @@
 
 <img src="./readme/title2.svg"/>
 
-> UPDOWN is a app that is used to manage elevators from both resident and owner of a building.
+> UpDown is a mobile app that allows the residents in a building to use the elevator and track their usage. And an admin panel where the manager of the building can add and track user activity.
 
-### User Stories
+### Resident Stories
 
-- As a user, I want to choose what floor I want to travel to
-- As a user, I want to track my usage of the elevator
-- As a user, I want to give access of usage to my visitor
+- As a resident, I want to choose what floor I want to travel to
+- As a resident, I want to track my usage of the elevator
+- As a resident, I want to give access of usage to my visitor
+
+### Manager Stories
+
+- As a manager, I want to track elevator usage of each apartment
+- As a manager, I want to add taxes and prices of elevator usage
+- As a manager, I want to give access or ban users of using the elevator
 
 <br><br>
 
@@ -49,9 +55,9 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing                                                                                | Home/Search                                                                               |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| ![Landing](https://github.com/[julescript/spotifyndr/blob/master/demo/Landing_Page.jpg](https://github.com/hadi-darwish/updown)) | ![Home/Search]([https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg](https://github.com/hadi-darwish/updown)) |
+| Landing                                                                                                                            | Home/Search                                                                                                                           |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Landing](<https://github.com/[julescript/spotifyndr/blob/master/demo/Landing_Page.jpg](https://github.com/hadi-darwish/updown)>) | ![Home/Search](<[https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg](https://github.com/hadi-darwish/updown)>) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
@@ -64,6 +70,7 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 This is an example of how to list things you need to use the software and how to install them.
 
 - composer
+
   ```
 
   ```
