@@ -1,0 +1,40 @@
+button {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  font-weight: 900;
+  font-family: "Nunito";
+  text-transform: uppercase;
+  height: 50px;
+}
+
+.button-primary {
+  background-color: #00303f;
+}
+
+.button-secondary {
+  background-color: #59dbae;
+}
+
+.button-big {
+  width: 31rem;
+}
+
+.button-small {
+  /* width: 10rem; */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .button-big {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .button-small {
+    font-size: 16px;
+  }
+}
