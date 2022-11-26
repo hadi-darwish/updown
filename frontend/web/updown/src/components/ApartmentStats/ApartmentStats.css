@@ -1,0 +1,41 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  margin: 5vh 10.5vw;
+  margin-bottom: 20px;
+  color: #00303f;
+  gap: 1.5rem;
+}
+
+h1,
+h2 {
+  align-self: flex-start;
+}
+
+.building-info {
+  background-color: #eaeaea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 30px;
+  font-size: 20px;
+  font-weight: 800;
+}
+.message {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 30px;
+  font-size: 20px;
+  font-weight: 800;
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .building-info {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,14 @@
+.top-bar {
+  background-color: #00303f;
+  height: 150px;
+  padding: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-bar__logo {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+}
