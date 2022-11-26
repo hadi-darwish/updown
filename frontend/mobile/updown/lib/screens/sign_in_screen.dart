@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,16 @@ class _SignInState extends State<SignIn> {
   final textController = TextEditingController();
   final passwordController = TextEditingController();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseMessaging.instance.getToken().then((token) {
+      print(token);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -123,6 +134,7 @@ class _SignInState extends State<SignIn> {
                   onPressed: () async {
                     final s = await SharedPreferences.getInstance();
                     s.clear();
+                    s.setString('mode', 'guest');
                     print(s.get('userData'));
                     Navigator.pushNamed(context, '/guestModeLogin');
                   },
