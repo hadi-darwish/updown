@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('apartment/{id}', [ApartmentController::class, 'updateApartment']);
     Route::post('apartment', [ApartmentController::class, 'createApartment']);
     Route::get('prices', [PriceController::class, 'getAllPrices']);
+    Route::post('prices', [BuildingController::class, 'getPrices']);
 });
