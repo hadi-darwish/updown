@@ -24,6 +24,7 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response);
         localStorage.setItem("token", response.authorisation.token);
+        localStorage.setItem("admin_id", response.user.id);
         localStorage.setItem("user", JSON.stringify(response.user));
         navigate("/home");
       })
