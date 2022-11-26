@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:updown/providers/building_provider.dart';
+import 'package:updown/providers/travel_provider.dart';
 import 'package:updown/widgets/dropdown.dart';
 import 'package:updown/widgets/elevator_button.dart';
 import 'package:updown/widgets/small_top.dart';
@@ -181,7 +182,7 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class FloorsGrid extends StatelessWidget {
+class FloorsGrid extends StatefulWidget {
   const FloorsGrid({
     super.key,
     required this.x,
@@ -196,8 +197,16 @@ class FloorsGrid extends StatelessWidget {
   final int host_floor;
 
   @override
+  State<FloorsGrid> createState() => _FloorsGridState();
+}
+
+class _FloorsGridState extends State<FloorsGrid> {
+  @override
   Widget build(BuildContext context) {
     final y = Provider.of<Building>(context).numberOfFloors;
+    setState(() {
+      var s = Provider.of<Travel>(context).onFloor;
+    });
     print('--------dd-------');
     print(y);
     print('------dd---------');
@@ -207,8 +216,8 @@ class FloorsGrid extends StatelessWidget {
       shrinkWrap: true,
       itemCount: h,
       padding: EdgeInsets.only(
-        left: screenWidth * 0.07,
-        right: screenWidth * 0.07,
+        left: widget.screenWidth * 0.07,
+        right: widget.screenWidth * 0.07,
       ),
       physics: const ScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -221,9 +230,11 @@ class FloorsGrid extends StatelessWidget {
         h -= 1;
         Widget d = ElevatorButton(
           floorNumber: h,
-          currentFloor: x,
+          currentFloor: widget.x,
           disabled:
-              mode == 'guest' && (h != (host_floor) && h != 0) ? true : false,
+              widget.mode == 'guest' && (h != (widget.host_floor) && h != 0)
+                  ? true
+                  : false,
         );
 
         return d;
