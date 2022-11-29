@@ -8,6 +8,7 @@ import "./HomePage.css";
 const HomePage = () => {
   const [buildingName, setBuildingName] = useState("");
   const [tax, setTax] = useState(0);
+  const [users, setUsers] = useState([]);
   const [buildingId, setBuildingId] = useState(0);
   const [price_per_travel, setPrice_per_travel] = useState(0);
   const [isOn, setIsOn] = useState(0);
@@ -20,7 +21,7 @@ const HomePage = () => {
       Password: "F0A692FDBF5A1C0CF99133920EDD56913BD6",
       Port: "2525",
       //   SecureToken: "c911847c-cc5b-455c-8184-ffe3ec2a4315",
-      To: ["khaledfaour2@gmail.com", "hadidarwish999@gmail.com"],
+      To: users,
       From: "hadi.darwish.03@gmail.com",
       Subject: "This is the subject",
       // Body: body,
@@ -63,6 +64,21 @@ const HomePage = () => {
               "price_per_travel",
               response.prices[0].price_per_travel
             );
+            request({
+              method: "post",
+              url: "residents",
+              data: {
+                building_id: localStorage.getItem("buildingId"),
+              },
+            }).then((response) => {
+              console.log(response);
+              let usrs = [];
+              response.residents.forEach((user) => {
+                usrs.push(user.email);
+              });
+
+              setUsers(usrs);
+            });
           })
           .catch((error) => {
             console.log(error);
